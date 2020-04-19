@@ -39,8 +39,11 @@ class _AddTreePageState extends State<AddTreePage> {
     _titleController = TextEditingController(text: isEditTree ? widget.tree.title : '');
     _descriptionController = TextEditingController(text: isEditTree ? widget.tree.description : '');
     _descriptionNode = FocusNode();
-    _imageUrl = tree.image;
+//    _imageUrl = tree.image;
+    _imageUrl = isEditTree ? tree.image : null;
   }
+
+  get isEditTree => widget.tree != null;
 
   Widget _showImage(){
     //_imageUrl = tree.image;
@@ -102,7 +105,7 @@ class _AddTreePageState extends State<AddTreePage> {
     }
   }
 
-  get isEditTree => widget.tree != null;
+  //get isEditTree => widget.tree != null;
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +122,6 @@ class _AddTreePageState extends State<AddTreePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _showImage(),
               SizedBox(
                 height: 16,
               ),
@@ -135,7 +137,10 @@ class _AddTreePageState extends State<AddTreePage> {
                   ),
                 ),
               )
-              :SizedBox(height: 0,),
+              :_showImage(),
+              _imageFile == null && _imageUrl == null ?
+                const SizedBox(height: 0.0)
+                :const SizedBox(height: 10.0),
               TextFormField(
                 textInputAction: TextInputAction.next,
                 onEditingComplete: (){
@@ -170,14 +175,15 @@ class _AddTreePageState extends State<AddTreePage> {
                 onPressed: () async {
                   print('saveTree called');
                   if(!_key.currentState.validate()){
-
 //                    try{
 //                      if(isEditTree){
 //                        Tree tree =Tree(description: _descriptionController.text,
-//                        title: _titleController.text,
-//                        id: widget.tree.id,
+//                          title: _titleController.text,
+//                          id: widget.tree.id,
 //                        );
-//                        await FirestoreService().updateTree(tree);
+//
+//                        uploadTreeAndImage(tree, isEditTree, _imageFile);
+////                        await FirestoreService().updateTree(tree);
 //
 //                        print("name: ${tree.title}");
 //                        print("description: ${tree.description}");
@@ -187,26 +193,49 @@ class _AddTreePageState extends State<AddTreePage> {
 //
 //                      }else {
 //                        Tree tree =Tree(description: _descriptionController.text,
-//                        title: _titleController.text,
+//                          title: _titleController.text,
 //                        );
-//                        await FirestoreService().addTree(tree);
+//                        uploadTreeAndImage(tree, isEditTree, _imageFile);
+//                        //await FirestoreService().addTree(tree);
 //                      }
 //                      Navigator.pop(context);
 //                    }catch(e){
+//                      print("A");
 //                      print(e);
 //                    }
                     return;
                   }
                   _key.currentState.save();
 
-                  print('form saved');
+                  if(isEditTree){
+                    Tree tree =Tree(description: _descriptionController.text,
+                      title: _titleController.text,
+                      image:_imageUrl,
+                      id: widget.tree.id,
+                    );
 
-                  uploadTreeAndImage(tree, widget.isUpdating, _imageFile);
+                    uploadTreeAndImage(tree, isEditTree, _imageFile);
 
-                  print("name: ${tree.title}");
-                  print("description: ${tree.description}");
-                  print("imageFile: ${_imageFile.toString()}");
-                  print("name: $_imageUrl");
+                    print('form saved');
+                  }
+                  else{
+                    Tree tree =Tree(description: _descriptionController.text,
+                      title: _titleController.text,
+                    );
+
+                    uploadTreeAndImage(tree, isEditTree, _imageFile);
+
+                    print('form saved');
+                  }
+
+
+                  Navigator.pop(context);
+
+//                  uploadTreeAndImage(tree, widget.isUpdating, _imageFile);
+//                  print("name: ${tree.title}");
+//                  print("description: ${tree.description}");
+//                  print("imageFile: ${_imageFile.toString()}");
+//                  print("name: $_imageUrl");
                 },
               ),
 

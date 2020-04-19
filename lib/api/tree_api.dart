@@ -9,7 +9,7 @@ import 'package:uuid/uuid.dart';
 uploadTreeAndImage(Tree tree, bool isUpdating, File localFile) async{
   if(localFile != null){
     print("uploading image");
-
+    //print (isUpdating);
     var fileExtension = path.extension(localFile.path);
     print(fileExtension);
 
