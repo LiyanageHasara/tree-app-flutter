@@ -3,6 +3,7 @@ import 'package:treeapp/data/firestore_service.dart';
 import 'package:treeapp/data/model/tree.dart';
 import 'package:treeapp/presentation/pages/add_tree.dart';
 import 'package:treeapp/presentation/pages/tree_details.dart';
+import 'package:treeapp/screens/authenticate/sign_in.dart';
 
 class HomePage extends StatelessWidget{
 
@@ -12,6 +13,18 @@ class HomePage extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(
         title: Text('ForestPARK'),
+        actions: <Widget>[
+          FlatButton.icon(
+              icon: Icon(Icons.person),
+              label: Text('Log Out'),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignIn()),
+                );
+              }
+          )
+        ],
       ),
       body: StreamBuilder(
         stream: FirestoreService().getTrees(),
@@ -62,7 +75,7 @@ class HomePage extends StatelessWidget{
         child: Icon(Icons.add),
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(
-            builder: (_) => AddTreePage(),
+            builder: (_) => AddTreePage(isUpdating: null),
           ));
         },
       ),
