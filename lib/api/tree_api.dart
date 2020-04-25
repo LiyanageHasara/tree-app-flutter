@@ -6,48 +6,56 @@ import 'package:path/path.dart' as path;
 import 'package:treeapp/data/model/tree.dart';
 import 'package:uuid/uuid.dart';
 
-uploadTreeAndImage(Tree tree, bool isUpdating, File localFile) async{
-  if(localFile != null){
-    print("uploading image");
-    //print (isUpdating);
-    var fileExtension = path.extension(localFile.path);
-    print(fileExtension);
+//function for upload the Tree and Image
+uploadTreeAndImage(Tree tree, bool isTreeUpdating, File localTreeFile) async{
+  if(localTreeFile != null){
+    print("upload tree image");
+    //create file extension
+    var treeFileExtension = path.extension(localTreeFile.path);
+    print(treeFileExtension);
 
-    var uuid = Uuid().v4();
+    var treeUuid = Uuid().v4();
 
-    final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('trees/images/$uuid$fileExtension');
+    //working with firebase storage and set its path
+    final StorageReference firebaseStorageReference = FirebaseStorage.instance.ref().child('trees/images/$treeUuid$treeFileExtension');
 
-    await firebaseStorageRef.putFile(localFile).onComplete.catchError((onError){
-      print(onError);
+    await firebaseStorageReference.putFile(localTreeFile).onComplete.catchError((onTreeError){
+      print(onTreeError);
       return false;
     });
 
-    String url = await firebaseStorageRef.getDownloadURL();
-    print("download url: $url");
-    _uploadTree(tree, isUpdating, imageUrl: url);
+    //get tree url
+    String treeUrl = await firebaseStorageReference.getDownloadURL();
+    print("downloading tree url: $treeUrl");
+    _uploadTree(tree, isTreeUpdating, treeImageUrl: treeUrl);
 
   }else{
-    print('skipping image upload');
-    _uploadTree(tree, isUpdating);
+    print('skip the image upload');
+    _uploadTree(tree, isTreeUpdating);
   }
 }
 
-_uploadTree(Tree tree, bool isUpdating, {String imageUrl}) async{
+
+//upload the tree
+_uploadTree(Tree tree, bool isTreeUpdating, {String treeImageUrl}) async{
   CollectionReference treeRef = Firestore.instance.collection('plant');
 
-  if(imageUrl != null){
-    tree.image = imageUrl;
+  //when image url is not null
+  if(treeImageUrl != null){
+    tree.treeImage = treeImageUrl;
   }
 
-  if(isUpdating){
-    await treeRef.document(tree.id).updateData(tree.toMap());
-    print('update tree with id: ${tree.id}');
+  //when isTreeUpdating is true
+  if(isTreeUpdating){
+    await treeRef.document(tree.treeId).updateData(tree.toMap());
+    print('updating tree with the id: ${tree.treeId}');
 
-  }else{
-    DocumentReference documentRef = await treeRef.add(tree.toMap());
-    tree.id =documentRef.documentID;
-    print('uploaded tree successfully: ${tree.toString()}');
-    await documentRef.setData(tree.toMap(), merge: true);
-
+  }
+  //when isTreeUpdating is false
+  else{
+    DocumentReference documentReference = await treeRef.add(tree.toMap());
+    tree.treeId =documentReference.documentID;
+    print('the tree was uploaded successfully: ${tree.toString()}');
+    await documentReference.setData(tree.toMap(), merge: true);
   }
 }

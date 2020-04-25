@@ -1,41 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:treeapp/data/model/tree.dart';
 
+//create TreeDetailsPage class
 class TreeDetailsPage extends StatelessWidget{
   final Tree tree;
 
+  //constructor
   const TreeDetailsPage({Key key, @required this.tree}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('Details'),
+        //title for details page
+        title: Text('Tree Details'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(30.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(tree.title, style: Theme.of(context)
+            //show the title of the selected tree
+            Text(tree.treeTitle, style: Theme.of(context)
                 .textTheme.title.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.bold
             ),),
-            const SizedBox(height: 20.0,),
+            const SizedBox(height: 18.0,),
+            //Show the image of the selected tree
             Container(
-              width: 350.0,
-              height: 200.0,
+              height: 210.0,
+              width: 352.0,
               decoration: new BoxDecoration(
-                  image: new DecorationImage(image: NetworkImage(tree.image != null ? tree.image : 'https://www.null.video/img/null-logo-new-small.jpg'),
+                  image: new DecorationImage(image: NetworkImage(tree.treeImage != null ? tree.treeImage : 'https://www.null.video/img/null-logo-new-small.jpg'),
                       fit: BoxFit.cover)
               ),
               ),
             Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(8.0),
             ),
-            Text(tree.description, style: TextStyle(
-              fontSize: 16.0
+            //show the description of selected tree
+            Text(tree.treeDescription, style: TextStyle(
+              fontSize: 15.0
             ),),
 
           ],

@@ -5,8 +5,7 @@ import 'package:treeapp/presentation/pages/add_tree.dart';
 import 'package:treeapp/presentation/pages/tree_details.dart';
 import 'package:treeapp/screens/authenticate/sign_in.dart';
 
-class HomePage extends StatelessWidget{
-
+class ListPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
@@ -26,44 +25,52 @@ class HomePage extends StatelessWidget{
           )
         ],
       ),
+      //create StreamBuilder
       body: StreamBuilder(
-        stream: FirestoreService().getTrees(),
-        builder: (BuildContext context, AsyncSnapshot<List<Tree>>
-        snapshot){
-          if(snapshot.hasError || !snapshot.hasData)
+        stream: MyFirestoreService().getTrees(),
+        builder: (BuildContext treeContext, AsyncSnapshot<List<Tree>>
+        snapshots){
+          if(snapshots.hasError || !snapshots.hasData)
             return CircularProgressIndicator();
+          //create the list view for the tree details
           return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (BuildContext context, int index){
-              Tree tree = snapshot.data[index];
+            itemCount: snapshots.data.length,
+            itemBuilder: (BuildContext treesContext, int index){
+              Tree tree = snapshots.data[index];
+              //include a card view into the list items
               return Card(
                 child: ListTile(
+                  //get image from the internet
                   leading: Image.network(
-                    tree.image != null ? tree.image : 'https://www.null.video/img/null-logo-new-small.jpg',
-                    width: 100.0,
+                    tree.treeImage != null ? tree.treeImage : 'https://www.null.video/img/null-logo-new-small.jpg',
                     fit: BoxFit.fitWidth,
+                    width: 100.0,
                   ),
-                  title: Text(tree.title),
+                  //show title of the tree
+                  title: Text(tree.treeTitle),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
+                      //edit icon
                       IconButton(
-                        color: Colors.black,
-                        icon: Icon(Icons.edit),
-                        onPressed: () => Navigator.push(context,
+                          icon: Icon(Icons.edit),
+                          color: Colors.black87,
+                          onPressed: () => Navigator.push(treesContext,
                             MaterialPageRoute(
-                              builder: (_) => AddTreePage(tree: tree,isUpdating: true),
+                              builder: (_) => AddTreePage(tree: tree,isTreeUpdating: true),
                             ))
                       ),
+                      //delete icon
                       IconButton(
-                        color: Colors.red,
                         icon: Icon(Icons.delete),
-                        onPressed: () => _deleteTree(context, tree.id),
+                        color: Colors.redAccent,
+                        onPressed: () => _deleteTree(treesContext, tree.treeId),
                       ),
                     ],
                   ),
+                  //navigate to the TreeDetails page when clicking
                   onTap: ()=>Navigator.push(
-                      context, MaterialPageRoute(
+                      treesContext, MaterialPageRoute(
                         builder: (_) => TreeDetailsPage(tree: tree),
                   ),),
                 ),
@@ -74,41 +81,43 @@ class HomePage extends StatelessWidget{
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
+          //navigated to the AddTree page when clicking floating action button
           Navigator.push(context, MaterialPageRoute(
-            builder: (_) => AddTreePage(isUpdating: null),
+            builder: (_) => AddTreePage(isTreeUpdating: null),
           ));
         },
       ),
     );
   }
 
-  void _deleteTree(BuildContext context,String id) async{
-    if(await _showConfirmationDialog(context)){
+  //delete tree function
+  void _deleteTree(BuildContext deleteContext,String treeId) async{
+    if(await _showDeleteConfirmation(deleteContext)){
       try{
-        await FirestoreService().deleteTree(id);
+        await MyFirestoreService().deleteTree(treeId);
       }catch(e){
         print(e);
       }
     }
-
   }
 
-  Future<bool> _showConfirmationDialog(BuildContext context) async{
+  //show the confirmation dialog box when deleting the tree details
+  Future<bool> _showDeleteConfirmation(BuildContext treeContext) async{
     return showDialog(
-      context: context,
       barrierDismissible: true,
-      builder: (context) => AlertDialog(
+      context: treeContext,
+      builder: (delContext) => AlertDialog(
         content: Text("Do you want to delete?"),
         actions: <Widget>[
           FlatButton(
-            textColor: Colors.red,
             child: Text("Delete"),
-            onPressed: () => Navigator.pop(context, true),
+            textColor: Colors.red,
+            onPressed: () => Navigator.pop(delContext, true),
           ),
           FlatButton(
-            textColor: Colors.black,
             child: Text("No"),
-            onPressed: () => Navigator.pop(context, false),
+            textColor: Colors.black,
+            onPressed: () => Navigator.pop(delContext, false),
           ),
         ],
       )

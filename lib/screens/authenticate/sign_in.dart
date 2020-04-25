@@ -3,7 +3,7 @@ import 'package:treeapp/presentation/pages/menu.dart';
 import 'package:treeapp/services/auth.dart';
 import 'package:treeapp/shared/constants.dart';
 import 'package:treeapp/shared/loading.dart';
-import '../../presentation/pages/home.dart';
+import '../../presentation/pages/list.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -85,7 +85,7 @@ class _SignInState extends State<SignIn> {
                     if(email == 'admin@gmail.com'){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => ListPage()),
                       );
                     }
 

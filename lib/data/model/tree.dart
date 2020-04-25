@@ -1,22 +1,26 @@
+//Tree model
 class Tree{
-  String title;
-  String description;
-  String image;
-  String id;
+  String treeTitle;
+  String treeDescription;
+  String treeImage;
+  String treeId;
 
-  Tree({this.title, this.description, this.image, this.id});
+  //create constructor
+  Tree({this.treeTitle, this.treeDescription, this.treeImage, this.treeId});
 
-  Tree.fromMap(Map<String,dynamic> data, String id):
-    title=data["title"],
-    description=data["description"],
-    image=data["image"],
-    id=id;
+  //return tree from map
+  Tree.fromMap(Map<String, dynamic> data, String treeId):
+    treeTitle = data["treeTitle"],
+    treeDescription = data["treeDescription"],
+    treeImage = data["treeImage"],
+    treeId = treeId;
+
 
   Map<String, dynamic> toMap(){
     return{
-      "title" : title,
-      "description" : description,
-      "image": image,
+      "treeTitle" : treeTitle,
+      "treeDescription" : treeDescription,
+      "treeImage": treeImage,
     };
   }
 }

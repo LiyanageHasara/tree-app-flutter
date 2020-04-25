@@ -26,7 +26,7 @@ class MenuPage extends StatelessWidget{
         ],
       ),
       body: StreamBuilder(
-          stream: FirestoreService().getTrees(),
+          stream: MyFirestoreService().getTrees(),
           builder: (BuildContext context, AsyncSnapshot<List<Tree>>
           snapshot){
             if(snapshot.hasError || !snapshot.hasData)
@@ -38,11 +38,11 @@ class MenuPage extends StatelessWidget{
                 return Card(
                   child: ListTile(
                     leading: Image.network(
-                      tree.image != null ? tree.image : 'https://www.null.video/img/null-logo-new-small.jpg',
+                      tree.treeImage != null ? tree.treeImage : 'https://www.null.video/img/null-logo-new-small.jpg',
                       width: 100.0,
                       fit: BoxFit.fitWidth,
                     ),
-                    title: Text(tree.title),
+                    title: Text(tree.treeTitle),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

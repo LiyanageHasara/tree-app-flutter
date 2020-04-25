@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:treeapp/presentation/pages/home.dart';
+import 'package:treeapp/presentation/pages/list.dart';
 import 'package:treeapp/models/user.dart';
 import 'package:treeapp/screens/authenticate/authenticate.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,7 @@ class Wrapper extends StatelessWidget {
     }
 
     else{
-      return HomePage();
+      return ListPage();
     }
   }
 }

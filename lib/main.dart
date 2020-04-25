@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(
+        title: 'Tree Details Application',
+        theme: ThemeData(
+          primarySwatch: Colors.teal,
+        ),
         home: Wrapper(),
       ),
     );

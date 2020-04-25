@@ -3,19 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:treeapp/api/tree_api.dart';
-import 'package:treeapp/data/firestore_service.dart';
 import 'package:treeapp/data/model/tree.dart';
-import 'package:path/path.dart';
 
+//create AddTreePage class
 class AddTreePage extends StatefulWidget {
   final Tree tree;
 
-  final bool isUpdating;
+  final bool isTreeUpdating;
 
-  AddTreePage({Key key, this.tree, @required this.isUpdating}) : super(key: key);
-  //AddTreePage({@required this.isUpdating});
+  //constructor
+  AddTreePage({Key key, this.tree, @required this.isTreeUpdating}) : super(key: key);
 
-  //const AddTreePage({Key key, this.tree}) : super(key: key);
   @override
   _AddTreePageState createState() => _AddTreePageState(tree);
 }
@@ -24,88 +22,88 @@ class _AddTreePageState extends State<AddTreePage> {
 
   Tree tree;
   _AddTreePageState(this.tree);
-  GlobalKey<FormState> _key = GlobalKey<FormState>();
-  TextEditingController _titleController;
-  TextEditingController _descriptionController;
-  FocusNode _descriptionNode;
-  String _imageUrl;
-  File _imageFile;
-
-
+  TextEditingController _treeTitleController;
+  TextEditingController _treeDescriptionController;
+  GlobalKey<FormState> _treeKey = GlobalKey<FormState>();
+  FocusNode _treeDescriptionNode;
+  File _treeImageFile;
+  String _treeImageUrl;
 
   @override
   void initState(){
     super.initState();
-    _titleController = TextEditingController(text: isEditTree ? widget.tree.title : '');
-    _descriptionController = TextEditingController(text: isEditTree ? widget.tree.description : '');
-    _descriptionNode = FocusNode();
-//    _imageUrl = tree.image;
-    _imageUrl = isEditTree ? tree.image : null;
+    _treeTitleController = TextEditingController(text: isEditTree ? widget.tree.treeTitle : '');
+    _treeDescriptionController = TextEditingController(text: isEditTree ? widget.tree.treeDescription : '');
+    _treeDescriptionNode = FocusNode();
+    _treeImageUrl = isEditTree ? tree.treeImage : null;
   }
 
   get isEditTree => widget.tree != null;
 
-  Widget _showImage(){
-    //_imageUrl = tree.image;
+  //show tree image
+  Widget _showTreeImage(){
 
-    if(_imageFile != null){
-      print("showing image from local file");
+    //when image file is not equal to null
+    if(_treeImageFile != null){
+      print("show the tree image from the local file");
 
       return Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[
           Image.file(
-            _imageFile,
-            fit: BoxFit.fitHeight,
-            //height: 250,
-            width: 350.0,
+            _treeImageFile,
             height: 200.0,
+            width: 350.0,
+            fit: BoxFit.fitHeight,
           ),
+          //button for change the image
           FlatButton(
             padding: EdgeInsets.all(16),
             color: Colors.black54,
             child: Text('Change Image',
               style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),),
-            onPressed: () => _getLocalImage(),
+            onPressed: () => _getLocalTreeImage(),
           )
         ],
       );
     }
 
-    else if(_imageUrl != null){
-      print("Showing image from url");
+    //when image url is not equal to null
+    else if(_treeImageUrl != null){
+      print("Show the tree image from the url");
 
       return Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[
+          //show image from the internet
           Image.network(
-            _imageUrl,
+            _treeImageUrl,
+            height: 240,
             fit: BoxFit.cover,
-            height: 250,
           ),
+          //to change the image
           FlatButton(
-            padding: EdgeInsets.all(16),
-            color: Colors.black54,
-            child: Text('Change Image',
-              style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),),
-            onPressed: () => _getLocalImage(),
+            padding: EdgeInsets.all(15),
+            color: Colors.black45,
+            child: Text('Change Tree Image',
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 23, color: Colors.white),),
+            onPressed: () => _getLocalTreeImage(),
           )
         ],
       );
     }
   }
 
-  _getLocalImage() async{
-    File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50, maxWidth: 400);
+  //get local tree image
+  _getLocalTreeImage() async{
+    File treeImageFile = await ImagePicker.pickImage(maxWidth: 400, source: ImageSource.gallery, imageQuality: 50);
 
-    if(imageFile != null){
+    if(treeImageFile != null){
       setState(() {
-        _imageFile = imageFile;
+        _treeImageFile = treeImageFile;
       });
     }
   }
-
-  //get isEditTree => widget.tree != null;
 
   @override
   Widget build(BuildContext context) {
@@ -116,126 +114,108 @@ class _AddTreePageState extends State<AddTreePage> {
         title: Text(isEditTree ? 'Edit Tree' : 'Add Tree'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(15.0),
         child: Form(
-          key: _key,
+          key: _treeKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: 16,
+                height: 10,
               ),
-              _imageFile == null && _imageUrl == null ?
+              _treeImageFile == null && _treeImageUrl == null ?
+              //button for add new tree
               ButtonTheme(
+                height: 50.0,
+                padding: const EdgeInsets.fromLTRB(135.0, 10.0, 135.0, 10.0),
                 child: RaisedButton(
-                  onPressed: () => _getLocalImage(),
+                  onPressed: () => _getLocalTreeImage(),
                   child: Text(
-                    'Add Image',
+                    'Add Tree Image',
                     style: TextStyle(
                       color: Colors.white
                     ),
                   ),
                 ),
               )
-              :_showImage(),
-              _imageFile == null && _imageUrl == null ?
-                const SizedBox(height: 0.0)
-                :const SizedBox(height: 10.0),
+              :_showTreeImage(),
+              _treeImageFile == null && _treeImageUrl == null ?
+                const SizedBox(height: 10.0)
+                :const SizedBox(height: 12.0),
+              //title
               TextFormField(
                 textInputAction: TextInputAction.next,
                 onEditingComplete: (){
-                  FocusScope.of(context).requestFocus(_descriptionNode);
+                  //cursor goes to the description tab when clicked the next button on keyboard
+                  FocusScope.of(context).requestFocus(_treeDescriptionNode);
                 },
-                controller: _titleController,
-                validator: (value){
-                  if(value==null || value.isEmpty)
-                    return "Title cannot be empty";
+                controller: _treeTitleController,
+                //validation for title
+                validator: (text){
+                  if(text==null || text.isEmpty)
+                    return "Tree title is required";
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: "title",
                   border: OutlineInputBorder(),
+                  labelText: "tree title",
                 ),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 12.0),
+              //description
               TextFormField(
-                focusNode: _descriptionNode,
-                controller: _descriptionController,
-                maxLines: 4,
+                focusNode: _treeDescriptionNode,
+                controller: _treeDescriptionController,
+                //validation for description tab
+                validator: (text){
+                  if(text==null || text.isEmpty)
+                    return "Tree description is required";
+                  return null;
+                },
+                maxLines: 7,
                 decoration: InputDecoration(
-                  labelText: "description",
+                  labelText: "tree description",
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 15.0),
+              //save and edit buttons
               RaisedButton(
-                color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
+                color: Theme.of(context).primaryColor,
                 child: Text(isEditTree ? "Update" : "Save"),
                 onPressed: () async {
                   print('saveTree called');
-                  if(!_key.currentState.validate()){
-//                    try{
-//                      if(isEditTree){
-//                        Tree tree =Tree(description: _descriptionController.text,
-//                          title: _titleController.text,
-//                          id: widget.tree.id,
-//                        );
-//
-//                        uploadTreeAndImage(tree, isEditTree, _imageFile);
-////                        await FirestoreService().updateTree(tree);
-//
-//                        print("name: ${tree.title}");
-//                        print("description: ${tree.description}");
-//                        print("imageFile: ${_imageFile.toString()}");
-//                        print("name: $_imageUrl");
-//
-//
-//                      }else {
-//                        Tree tree =Tree(description: _descriptionController.text,
-//                          title: _titleController.text,
-//                        );
-//                        uploadTreeAndImage(tree, isEditTree, _imageFile);
-//                        //await FirestoreService().addTree(tree);
-//                      }
-//                      Navigator.pop(context);
-//                    }catch(e){
-//                      print("A");
-//                      print(e);
-//                    }
+                  if(!_treeKey.currentState.validate()){
                     return;
                   }
-                  _key.currentState.save();
+                  _treeKey.currentState.save();
 
+                  //when tree object is not null
                   if(isEditTree){
-                    Tree tree =Tree(description: _descriptionController.text,
-                      title: _titleController.text,
-                      image:_imageUrl,
-                      id: widget.tree.id,
+                    Tree tree =Tree(treeDescription: _treeDescriptionController.text,
+                      treeTitle: _treeTitleController.text,
+                      treeImage:_treeImageUrl,
+                      treeId: widget.tree.treeId,
                     );
 
-                    uploadTreeAndImage(tree, isEditTree, _imageFile);
+                    uploadTreeAndImage(tree, isEditTree, _treeImageFile);
 
-                    print('form saved');
+                    print('the form is saved');
                   }
+                  //when tree object is null
                   else{
-                    Tree tree =Tree(description: _descriptionController.text,
-                      title: _titleController.text,
+                    Tree tree =Tree(treeDescription: _treeDescriptionController.text,
+                      treeTitle: _treeTitleController.text,
                     );
 
-                    uploadTreeAndImage(tree, isEditTree, _imageFile);
+                    uploadTreeAndImage(tree, isEditTree, _treeImageFile);
 
-                    print('form saved');
+                    print('the form is saved');
                   }
-
 
                   Navigator.pop(context);
 
-//                  uploadTreeAndImage(tree, widget.isUpdating, _imageFile);
-//                  print("name: ${tree.title}");
-//                  print("description: ${tree.description}");
-//                  print("imageFile: ${_imageFile.toString()}");
-//                  print("name: $_imageUrl");
                 },
               ),
 
