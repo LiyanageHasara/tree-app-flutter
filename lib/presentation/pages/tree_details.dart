@@ -23,6 +23,7 @@ class TreeDetailsPage extends StatelessWidget{
             //show the title of the selected tree
             Text(tree.treeTitle, style: Theme.of(context)
                 .textTheme.title.copyWith(
+                  color: Color(0xFF196b69),
                   fontSize: 23.0,
                   fontWeight: FontWeight.bold
             ),),

@@ -60,7 +60,7 @@ class _AddTreePageState extends State<AddTreePage> {
           FlatButton(
             padding: EdgeInsets.all(16),
             color: Colors.black54,
-            child: Text('Change Image',
+            child: Text('Change tree Image',
               style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),),
             onPressed: () => _getLocalTreeImage(),
           )
@@ -127,6 +127,7 @@ class _AddTreePageState extends State<AddTreePage> {
               //button for add new tree
               ButtonTheme(
                 height: 50.0,
+                buttonColor: Color(0xFF196b69),
                 padding: const EdgeInsets.fromLTRB(135.0, 10.0, 135.0, 10.0),
                 child: RaisedButton(
                   onPressed: () => _getLocalTreeImage(),
@@ -172,8 +173,9 @@ class _AddTreePageState extends State<AddTreePage> {
                     return "Tree description is required";
                   return null;
                 },
-                maxLines: 7,
+                maxLines: 5,
                 decoration: InputDecoration(
+
                   labelText: "tree description",
                   border: OutlineInputBorder(),
                 ),
@@ -182,7 +184,7 @@ class _AddTreePageState extends State<AddTreePage> {
               //save and edit buttons
               RaisedButton(
                 textColor: Colors.white,
-                color: Theme.of(context).primaryColor,
+                color: Color(0xFF196b69),
                 child: Text(isEditTree ? "Update" : "Save"),
                 onPressed: () async {
                   print('saveTree called');

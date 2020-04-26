@@ -16,7 +16,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Tree Details Application',
         theme: ThemeData(
-          primarySwatch: Colors.teal,
+          brightness: Brightness.light,
+          primaryColor: Color(0xFF196b69),
+          accentColor: Color(0xFF196b69),
+          scaffoldBackgroundColor: Color(0xFFddfee4),
         ),
         home: Wrapper(),
       ),

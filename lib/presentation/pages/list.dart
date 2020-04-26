@@ -15,6 +15,7 @@ class ListPage extends StatelessWidget{
         actions: <Widget>[
           FlatButton.icon(
               icon: Icon(Icons.person),
+              textColor: Color(0xFFd5eded),
               label: Text('Log Out'),
               onPressed: (){
                 Navigator.push(
@@ -39,6 +40,7 @@ class ListPage extends StatelessWidget{
               Tree tree = snapshots.data[index];
               //include a card view into the list items
               return Card(
+                color: Color(0xFFf7fff8),
                 child: ListTile(
                   //get image from the internet
                   leading: Image.network(
@@ -54,7 +56,7 @@ class ListPage extends StatelessWidget{
                       //edit icon
                       IconButton(
                           icon: Icon(Icons.edit),
-                          color: Colors.black87,
+                          color: Color(0xFF196b69),
                           onPressed: () => Navigator.push(treesContext,
                             MaterialPageRoute(
                               builder: (_) => AddTreePage(tree: tree,isTreeUpdating: true),
@@ -63,7 +65,7 @@ class ListPage extends StatelessWidget{
                       //delete icon
                       IconButton(
                         icon: Icon(Icons.delete),
-                        color: Colors.redAccent,
+                        color: Color(0xFF196b69),
                         onPressed: () => _deleteTree(treesContext, tree.treeId),
                       ),
                     ],
