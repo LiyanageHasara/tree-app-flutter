@@ -15,7 +15,9 @@ class MyFirestoreService {
 
   //to get the list of trees
   Stream<List<Tree>> getTrees() {
-    return _firestoreDb.collection('plant').snapshots().map(
+    //.collection("plant")
+    //.orderBy("", "asc")
+    return _firestoreDb.collection('plant').orderBy("treeTitle").snapshots().map(
           (snapshots) => snapshots.documents.map(
             (docs) => Tree.fromMap(docs.data, docs.documentID),
           ).toList(),

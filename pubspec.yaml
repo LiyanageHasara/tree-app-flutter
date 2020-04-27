@@ -27,6 +27,8 @@ dependencies:
   provider: ^4.0.5
   firebase_auth: ^0.16.0
   flutter_spinkit: ^4.1.2+1
+  menu: ^0.1.4
+  popup_menu: ^1.0.5
 
 
   # The following adds the Cupertino Icons font to your application.

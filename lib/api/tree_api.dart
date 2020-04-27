@@ -59,3 +59,4 @@ _uploadTree(Tree tree, bool isTreeUpdating, {String treeImageUrl}) async{
     await documentReference.setData(tree.toMap(), merge: true);
   }
 }
+
