@@ -154,12 +154,12 @@ class _AddTreePageState extends State<AddTreePage> {
                 //validation for title
                 validator: (text){
                   if(text==null || text.isEmpty)
-                    return "Tree title is required";
+                    return "Tree name is required";
                   return null;
                 },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: "tree title",
+                  labelText: "tree name",
                 ),
               ),
               const SizedBox(height: 12.0),
