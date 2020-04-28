@@ -12,14 +12,14 @@ class AddTreePage extends StatefulWidget {
   final bool isTreeUpdating;
 
   //constructor
-  AddTreePage({Key key, this.tree, @required this.isTreeUpdating}) : super(key: key);
+  AddTreePage({Key key, this.tree, @required this.isTreeUpdating})
+      : super(key: key);
 
   @override
   _AddTreePageState createState() => _AddTreePageState(tree);
 }
 
 class _AddTreePageState extends State<AddTreePage> {
-
   Tree tree;
   _AddTreePageState(this.tree);
   TextEditingController _treeTitleController;
@@ -30,10 +30,12 @@ class _AddTreePageState extends State<AddTreePage> {
   String _treeImageUrl;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _treeTitleController = TextEditingController(text: isEditTree ? widget.tree.treeTitle : '');
-    _treeDescriptionController = TextEditingController(text: isEditTree ? widget.tree.treeDescription : '');
+    _treeTitleController =
+        TextEditingController(text: isEditTree ? widget.tree.treeTitle : '');
+    _treeDescriptionController = TextEditingController(
+        text: isEditTree ? widget.tree.treeDescription : '');
     _treeDescriptionNode = FocusNode();
     _treeImageUrl = isEditTree ? tree.treeImage : null;
   }
@@ -41,10 +43,9 @@ class _AddTreePageState extends State<AddTreePage> {
   get isEditTree => widget.tree != null;
 
   //show tree image
-  Widget _showTreeImage(){
-
+  Widget _showTreeImage() {
     //when image file is not equal to null
-    if(_treeImageFile != null){
+    if (_treeImageFile != null) {
       print("show the tree image from the local file");
 
       return Stack(
@@ -60,8 +61,13 @@ class _AddTreePageState extends State<AddTreePage> {
           FlatButton(
             padding: EdgeInsets.all(16),
             color: Colors.black54,
-            child: Text('Change tree Image',
-              style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),),
+            child: Text(
+              'Change tree Image',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w400),
+            ),
             onPressed: () => _getLocalTreeImage(),
           )
         ],
@@ -69,7 +75,7 @@ class _AddTreePageState extends State<AddTreePage> {
     }
 
     //when image url is not equal to null
-    else if(_treeImageUrl != null){
+    else if (_treeImageUrl != null) {
       print("Show the tree image from the url");
 
       return Stack(
@@ -85,8 +91,13 @@ class _AddTreePageState extends State<AddTreePage> {
           FlatButton(
             padding: EdgeInsets.all(15),
             color: Colors.black45,
-            child: Text('Change Tree Image',
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 23, color: Colors.white),),
+            child: Text(
+              'Change Tree Image',
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 23,
+                  color: Colors.white),
+            ),
             onPressed: () => _getLocalTreeImage(),
           )
         ],
@@ -95,10 +106,11 @@ class _AddTreePageState extends State<AddTreePage> {
   }
 
   //get local tree image
-  _getLocalTreeImage() async{
-    File treeImageFile = await ImagePicker.pickImage(maxWidth: 400, source: ImageSource.gallery, imageQuality: 50);
+  _getLocalTreeImage() async {
+    File treeImageFile = await ImagePicker.pickImage(
+        maxWidth: 400, source: ImageSource.gallery, imageQuality: 50);
 
-    if(treeImageFile != null){
+    if (treeImageFile != null) {
       setState(() {
         _treeImageFile = treeImageFile;
       });
@@ -107,8 +119,6 @@ class _AddTreePageState extends State<AddTreePage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         title: Text(isEditTree ? 'Edit Tree' : 'Add Tree'),
@@ -123,37 +133,37 @@ class _AddTreePageState extends State<AddTreePage> {
               SizedBox(
                 height: 10,
               ),
-              _treeImageFile == null && _treeImageUrl == null ?
-              //button for add new tree
-              ButtonTheme(
-                height: 50.0,
-                buttonColor: Color(0xFF196b69),
-                padding: const EdgeInsets.fromLTRB(135.0, 10.0, 135.0, 10.0),
-                child: RaisedButton(
-                  onPressed: () => _getLocalTreeImage(),
-                  child: Text(
-                    'Add Tree Image',
-                    style: TextStyle(
-                      color: Colors.white
-                    ),
-                  ),
-                ),
-              )
-              :_showTreeImage(),
-              _treeImageFile == null && _treeImageUrl == null ?
-                const SizedBox(height: 10.0)
-                :const SizedBox(height: 12.0),
+              _treeImageFile == null && _treeImageUrl == null
+                  ?
+                  //button for add new tree
+                  ButtonTheme(
+                      height: 50.0,
+                      buttonColor: Color(0xFF196b69),
+                      padding:
+                          const EdgeInsets.fromLTRB(135.0, 10.0, 135.0, 10.0),
+                      child: RaisedButton(
+                        onPressed: () => _getLocalTreeImage(),
+                        child: Text(
+                          'Add Tree Image',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    )
+                  : _showTreeImage(),
+              _treeImageFile == null && _treeImageUrl == null
+                  ? const SizedBox(height: 10.0)
+                  : const SizedBox(height: 12.0),
               //title
               TextFormField(
                 textInputAction: TextInputAction.next,
-                onEditingComplete: (){
+                onEditingComplete: () {
                   //cursor goes to the description tab when clicked the next button on keyboard
                   FocusScope.of(context).requestFocus(_treeDescriptionNode);
                 },
                 controller: _treeTitleController,
                 //validation for title
-                validator: (text){
-                  if(text==null || text.isEmpty)
+                validator: (text) {
+                  if (text == null || text.isEmpty)
                     return "Tree name is required";
                   return null;
                 },
@@ -168,14 +178,13 @@ class _AddTreePageState extends State<AddTreePage> {
                 focusNode: _treeDescriptionNode,
                 controller: _treeDescriptionController,
                 //validation for description tab
-                validator: (text){
-                  if(text==null || text.isEmpty)
+                validator: (text) {
+                  if (text == null || text.isEmpty)
                     return "Tree description is required";
                   return null;
                 },
                 maxLines: 5,
                 decoration: InputDecoration(
-
                   labelText: "tree description",
                   border: OutlineInputBorder(),
                 ),
@@ -188,16 +197,17 @@ class _AddTreePageState extends State<AddTreePage> {
                 child: Text(isEditTree ? "Update" : "Save"),
                 onPressed: () async {
                   print('saveTree called');
-                  if(!_treeKey.currentState.validate()){
+                  if (!_treeKey.currentState.validate()) {
                     return;
                   }
                   _treeKey.currentState.save();
 
                   //when tree object is not null
-                  if(isEditTree){
-                    Tree tree =Tree(treeDescription: _treeDescriptionController.text,
+                  if (isEditTree) {
+                    Tree tree = Tree(
+                      treeDescription: _treeDescriptionController.text,
                       treeTitle: _treeTitleController.text,
-                      treeImage:_treeImageUrl,
+                      treeImage: _treeImageUrl,
                       treeId: widget.tree.treeId,
                     );
 
@@ -206,8 +216,9 @@ class _AddTreePageState extends State<AddTreePage> {
                     print('the form is saved');
                   }
                   //when tree object is null
-                  else{
-                    Tree tree =Tree(treeDescription: _treeDescriptionController.text,
+                  else {
+                    Tree tree = Tree(
+                      treeDescription: _treeDescriptionController.text,
                       treeTitle: _treeTitleController.text,
                     );
 
@@ -217,10 +228,8 @@ class _AddTreePageState extends State<AddTreePage> {
                   }
 
                   Navigator.pop(context);
-
                 },
               ),
-
             ],
           ),
         ),

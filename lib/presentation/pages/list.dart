@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:treeapp/data/animation_page_route.dart';
 import 'package:treeapp/data/firestore_service.dart';
 import 'package:treeapp/data/model/tree.dart';
 import 'package:treeapp/presentation/pages/add_tree.dart';
@@ -50,8 +51,9 @@ class ListPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () => Navigator.push(
                           treesContext,
-                          MaterialPageRoute(
-                            builder: (_) => TreeDetailsPage(tree: tree),
+                          AnimationPageRoute(
+                            'center',
+                            widget: TreeDetailsPage(tree: tree),
                           ),
                         ),
                         child: new ClipRRect(
@@ -69,29 +71,6 @@ class ListPage extends StatelessWidget {
                           ),
                         ),
                       ),
-
-//                      GestureDetector(
-//                        onTap: () => Navigator.push(
-//                          treesContext,
-//                          MaterialPageRoute(
-//                            builder: (_) => TreeDetailsPage(tree: tree),
-//                          ),
-//                        ),
-//                        child: new ClipRRect(
-//                          child: new Image.network(
-//                            tree.treeImage != null
-//                                ? tree.treeImage
-//                                : 'https://www.null.video/img/null-logo-new-small.jpg',
-//                            fit: BoxFit.fitWidth,
-//                            height: 200.0,
-//                            width: 700.0,
-//                          ),
-//                          borderRadius: BorderRadius.only(
-//                            topLeft: new Radius.circular(15.0),
-//                            topRight: new Radius.circular(15.0),
-//                          ),
-//                        ),
-//                      ),
                       new Padding(
                         padding: new EdgeInsets.all(12.0),
                         child: new Column(
@@ -106,22 +85,23 @@ class ListPage extends StatelessWidget {
                                   tree.treeTitle.toUpperCase(),
                                   style: Theme.of(context).textTheme.title,
                                 ),
-
                                 new Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: <Widget>[
                                     new Row(
                                       children: <Widget>[
+                                        //edit icon
                                         IconButton(
                                             icon: Icon(Icons.edit),
                                             color: Color(0xFF196b69),
                                             onPressed: () => Navigator.push(
                                                 treesContext,
-                                                MaterialPageRoute(
-                                                  builder: (_) => AddTreePage(
+                                                AnimationPageRoute(
+                                                    'centerRight',
+                                                    widget: AddTreePage(
                                                       tree: tree,
-                                                      isTreeUpdating: true),
-                                                ))),
+                                                      isTreeUpdating: true,
+                                                    )))),
                                         //delete icon
                                         IconButton(
                                           icon: Icon(Icons.delete),
@@ -133,8 +113,6 @@ class ListPage extends StatelessWidget {
                                     )
                                   ],
                                 )
-
-                                //edit icon
                               ],
                             )
                           ],
@@ -142,42 +120,6 @@ class ListPage extends StatelessWidget {
                       ),
                     ],
                   ),
-
-//                child: ListTile(
-//                  //get image from the internet
-//                  leading: Image.network(
-//                    tree.treeImage != null ? tree.treeImage : 'https://www.null.video/img/null-logo-new-small.jpg',
-//                    fit: BoxFit.fitWidth,
-//                    width: 100.0,
-//                  ),
-//                  //show title of the tree
-//                  title: Text(tree.treeTitle),
-//                  trailing: Row(
-//                    mainAxisSize: MainAxisSize.min,
-//                    children: <Widget>[
-//                      //edit icon
-//                      IconButton(
-//                          icon: Icon(Icons.edit),
-//                          color: Color(0xFF196b69),
-//                          onPressed: () => Navigator.push(treesContext,
-//                            MaterialPageRoute(
-//                              builder: (_) => AddTreePage(tree: tree,isTreeUpdating: true),
-//                            ))
-//                      ),
-//                      //delete icon
-//                      IconButton(
-//                        icon: Icon(Icons.delete),
-//                        color: Color(0xFF196b69),
-//                        onPressed: () => _deleteTree(treesContext, tree.treeId),
-//                      ),
-//                    ],
-//                  ),
-//                  //navigate to the TreeDetails page when clicking
-//                  onTap: ()=>Navigator.push(
-//                      treesContext, MaterialPageRoute(
-//                        builder: (_) => TreeDetailsPage(tree: tree),
-//                  ),),
-//                ),
                 );
               },
             );
@@ -194,10 +136,12 @@ class ListPage extends StatelessWidget {
         onPressed: () {
           //navigated to the AddTree page when clicking floating action button
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => AddTreePage(isTreeUpdating: null),
-              ));
+            context,
+            AnimationPageRoute(
+              'bottomCenter',
+              widget: AddTreePage(isTreeUpdating: null),
+            ),
+          );
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

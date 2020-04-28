@@ -17,17 +17,21 @@ class MyFirestoreService {
   Stream<List<Tree>> getTrees() {
     //.collection("plant")
     //.orderBy("", "asc")
-    return _firestoreDb.collection('plant').orderBy("treeTitle").snapshots().map(
-          (snapshots) => snapshots.documents.map(
-            (docs) => Tree.fromMap(docs.data, docs.documentID),
-          ).toList(),
-    );
+    return _firestoreDb
+        .collection('plant')
+        .orderBy("treeTitle")
+        .snapshots()
+        .map(
+          (snapshots) => snapshots.documents
+              .map(
+                (docs) => Tree.fromMap(docs.data, docs.documentID),
+              )
+              .toList(),
+        );
   }
 
   //to delete the tree
-  Future<void> deleteTree(String treeId){
+  Future<void> deleteTree(String treeId) {
     return _firestoreDb.collection('plant').document(treeId).delete();
   }
-
 }
-
