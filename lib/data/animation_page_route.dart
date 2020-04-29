@@ -6,7 +6,7 @@ class AnimationPageRoute extends PageRouteBuilder {
 
   AnimationPageRoute(String align, {this.widget})
       : super(
-            transitionDuration: Duration(milliseconds: 700),
+            transitionDuration: Duration(milliseconds: 600),
             transitionsBuilder: (BuildContext context,
                 Animation<double> animation,
                 Animation<double> secAnimation,
