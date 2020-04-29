@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
+
 //add page animation when page routing
 class AnimationPageRoute extends PageRouteBuilder {
   final Widget widget;
 
   AnimationPageRoute(String align, {this.widget})
       : super(
-            transitionDuration: Duration(milliseconds: 400),
+            transitionDuration: Duration(milliseconds: 700),
             transitionsBuilder: (BuildContext context,
                 Animation<double> animation,
                 Animation<double> secAnimation,
@@ -22,13 +23,21 @@ class AnimationPageRoute extends PageRouteBuilder {
                 alignment = Alignment.center;
               }
               animation =
-                  CurvedAnimation(parent: animation, curve: Curves.ease);
+                  CurvedAnimation(parent: animation, curve: Curves.fastLinearToSlowEaseIn);
 
-              return ScaleTransition(
-                alignment: alignment,
-                scale: animation,
-                child: child,
-              );
+//              return ScaleTransition(
+//                alignment: alignment,
+//                scale: animation,
+//                child: child,
+//              );
+                return ScaleTransition(
+                  alignment: alignment,
+                  scale: animation,
+                  child: FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
+                );
             },
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secAnimation) {
