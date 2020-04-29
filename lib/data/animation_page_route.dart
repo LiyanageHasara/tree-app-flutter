@@ -25,11 +25,6 @@ class AnimationPageRoute extends PageRouteBuilder {
               animation =
                   CurvedAnimation(parent: animation, curve: Curves.fastLinearToSlowEaseIn);
 
-//              return ScaleTransition(
-//                alignment: alignment,
-//                scale: animation,
-//                child: child,
-//              );
                 return ScaleTransition(
                   alignment: alignment,
                   scale: animation,
