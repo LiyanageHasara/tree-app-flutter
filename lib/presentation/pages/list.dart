@@ -12,30 +12,17 @@ import 'package:treeapp/presentation/pages/constatncls.dart';
 
 class ListPage extends StatelessWidget {
 
-//    _onSelect(String choice){
-//    if(choice == Constatnts.Help){
-//      Navigator.push(
-//        context,
-//        MaterialPageRoute()
-//      )
-//    }
-//  }
   @override
   Widget build(BuildContext context) {
 
     void choiceAction(String choice){
       if(choice == Constatnts.Help){
-        //return AboutPage();
-        print('Clicked Help');
-        //return MaterialPageRoute(builder: (context) => AboutPage());
         Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AboutPage())
         );
       }
       else if(choice == Constatnts.Logout){
-        print('Clicked Logout');
-        //return MaterialPageRoute(builder: (context) => SignIn());
         Navigator.pop(context);
       }
     }
@@ -191,18 +178,6 @@ class ListPage extends StatelessWidget {
       }
     }
   }
-
-//  Route <dynamic> choiceAction(String choice){
-//    if(choice == Constatnts.Help){
-//      //return AboutPage();
-//      print('Clicked Help');
-//      return MaterialPageRoute(builder: (BuildContext context) => AboutPage());
-//    }
-//    else if(choice == Constatnts.Logout){
-//      print('Clicked Logout');
-//      return MaterialPageRoute(builder: (BuildContext context) => SignIn());
-//    }
-//  }
 
 
 
