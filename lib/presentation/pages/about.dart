@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:treeapp/presentation/pages/text_style.dart';
 
+import 'list.dart';
+import 'list.dart';
+
 class AboutPage extends StatelessWidget {
 
   @override
@@ -14,6 +17,18 @@ class AboutPage extends StatelessWidget {
             _getBackground(),
             _getGradient(),
             _getContent(),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ListPage())
+                  );
+                },
+                child: Icon(Icons.navigate_next),
+              ),
+            ),
            // _getToolbar(context),
           ],
         ),
@@ -72,15 +87,6 @@ class AboutPage extends StatelessWidget {
               children: <Widget>[
                 new Text("This particular app helps you in getting information regarding a plant from the experts. This app already has many plants information uploaded with proper detailing. If you are ever confused regarding plants, then this is the best plant identification app launched in 2020. It also helps you in taking care of your plant with proper guidance and instructions for making them grow healthy. It is compatible with both the platformas Android/iOS.",
                     style: Style.commonTextStyle),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      return MaterialPageRoute(builder: (context) => ListView());
-                    },
-                    child: Icon(Icons.navigate_next),
-                  ),
-                ),
               ],
             ),
           ),
