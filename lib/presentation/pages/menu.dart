@@ -4,7 +4,6 @@ import 'package:treeapp/data/animation_page_route.dart';
 import 'package:treeapp/data/firestore_service.dart';
 import 'package:treeapp/data/model/tree.dart';
 import 'package:treeapp/presentation/pages/about.dart';
-import 'package:treeapp/presentation/pages/add_tree.dart';
 import 'package:treeapp/presentation/pages/searchPage.dart';
 import 'package:treeapp/presentation/pages/tree_details.dart';
 import 'package:treeapp/screens/authenticate/sign_in.dart';
@@ -127,7 +126,7 @@ class MenuPage extends StatelessWidget {
             );
           }),
 
-      floatingActionButton: FloatingActionButton(
+/*      floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,
           color: Color(0xFF196b69),
@@ -145,7 +144,7 @@ class MenuPage extends StatelessWidget {
             ),
           );
         },
-      ),
+      ),*/
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
