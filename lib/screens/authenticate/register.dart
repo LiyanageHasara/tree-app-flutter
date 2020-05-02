@@ -251,6 +251,8 @@ String validateEmail(String value) {
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value))
     return 'Enter Valid Email';
+  else if(value == 'admin@gmail.com')
+    return 'You have once signed up to the app using this mail';
   else
     return null;
 }

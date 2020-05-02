@@ -30,6 +30,22 @@ class MyFirestoreService {
         );
   }
 
+  Stream<List<Tree>> searchTrees(String searchField) {
+    return _firestoreDb
+        .collection('plant')
+        .where('searchKey',
+        isEqualTo: searchField.substring(0, 1).toUpperCase())
+        .snapshots()
+        .map(
+          (snapshots) => snapshots.documents
+          .map(
+            (docs) => Tree.fromMap(docs.data, docs.documentID),
+      )
+          .toList(),
+    );
+
+  }
+
   //to delete the tree
   Future<void> deleteTree(String treeId) {
     return _firestoreDb.collection('plant').document(treeId).delete();

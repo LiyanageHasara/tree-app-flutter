@@ -212,6 +212,8 @@ String validateEmail(String value) {
 String validatePassword(String value) {
   if (value.length < 6)
     return 'Password must be more than 6 charater';
+  else if(value == "testuser123")
+    return 'invalid password';
   else
     return null;
 }

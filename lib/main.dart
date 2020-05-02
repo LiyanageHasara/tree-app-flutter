@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treeapp/models/user.dart';
+import 'package:treeapp/presentation/pages/searchPage.dart';
 import 'package:treeapp/screens/authenticate/sign_in.dart';
 import 'package:treeapp/screens/wrapper.dart';
 import 'package:treeapp/services/auth.dart';

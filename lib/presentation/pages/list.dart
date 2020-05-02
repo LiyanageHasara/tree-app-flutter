@@ -6,9 +6,12 @@ import 'package:treeapp/data/firestore_service.dart';
 import 'package:treeapp/data/model/tree.dart';
 import 'package:treeapp/presentation/pages/about.dart';
 import 'package:treeapp/presentation/pages/add_tree.dart';
+import 'package:treeapp/presentation/pages/searchPage.dart';
 import 'package:treeapp/presentation/pages/tree_details.dart';
 import 'package:treeapp/screens/authenticate/sign_in.dart';
 import 'package:treeapp/presentation/pages/constatncls.dart';
+
+import '../../screens/authenticate/sign_in.dart';
 
 class ListPage extends StatelessWidget {
 
@@ -22,8 +25,21 @@ class ListPage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => AboutPage())
         );
       }
+
+      else if(choice == Constatnts.Search){
+        //Navigator.pop(context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SearchPage())
+        );
+      }
+
       else if(choice == Constatnts.Logout){
-        Navigator.pop(context);
+        //Navigator.pop(context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SignIn())
+        );
       }
     }
 
@@ -141,7 +157,8 @@ class ListPage extends StatelessWidget {
                 );
               },
             );
-          }),
+          },
+            ),
 
       floatingActionButton: FloatingActionButton(
         child: Icon(
@@ -203,3 +220,4 @@ class ListPage extends StatelessWidget {
             ));
   }
 }
+

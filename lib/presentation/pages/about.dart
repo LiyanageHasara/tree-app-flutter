@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:treeapp/presentation/pages/text_style.dart';
 
 import 'list.dart';
-import 'list.dart';
 
 class AboutPage extends StatelessWidget {
 
@@ -29,7 +28,7 @@ class AboutPage extends StatelessWidget {
                 child: Icon(Icons.navigate_next),
               ),
             ),
-           // _getToolbar(context),
+            // _getToolbar(context),
           ],
         ),
       ),
@@ -72,14 +71,14 @@ class AboutPage extends StatelessWidget {
       child: new ListView(
         padding: new EdgeInsets.fromLTRB(0.0, 72.0, 0.0, 32.0),
         children: <Widget>[
-      new Container(
-          padding: EdgeInsets.only(left: 30.0, right: 30.0, top: 120.0),
-          child: new Image.asset(
-            "assets/images/logo.png",
-            height: 100.0,
-            width: 150.0,
-            fit: BoxFit.scaleDown,
-          )),
+          new Container(
+              padding: EdgeInsets.only(left: 30.0, right: 30.0, top: 120.0),
+              child: new Image.asset(
+                "assets/images/logo.png",
+                height: 100.0,
+                width: 150.0,
+                fit: BoxFit.scaleDown,
+              )),
           new Container(
             padding: EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
             child: new Column(

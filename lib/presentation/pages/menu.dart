@@ -3,27 +3,57 @@ import 'package:flutter/material.dart';
 import 'package:treeapp/data/animation_page_route.dart';
 import 'package:treeapp/data/firestore_service.dart';
 import 'package:treeapp/data/model/tree.dart';
+import 'package:treeapp/presentation/pages/about.dart';
 import 'package:treeapp/presentation/pages/add_tree.dart';
+import 'package:treeapp/presentation/pages/searchPage.dart';
 import 'package:treeapp/presentation/pages/tree_details.dart';
 import 'package:treeapp/screens/authenticate/sign_in.dart';
+import 'package:treeapp/presentation/pages/constatncls.dart';
 
 class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    void choiceAction(String choice){
+      if(choice == Constatnts.Help){
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AboutPage())
+        );
+      }
+
+      else if(choice == Constatnts.Search){
+        //Navigator.pop(context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SearchPage())
+        );
+      }
+
+      else if(choice == Constatnts.Logout){
+        //Navigator.pop(context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SignIn())
+        );
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('ForestPARK'),
         actions: <Widget>[
-          FlatButton.icon(
-              icon: Icon(Icons.person),
-              textColor: Color(0xFFd5eded),
-              label: Text('Log Out'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignIn()),
+          PopupMenuButton<String>(
+            onSelected: choiceAction,
+            itemBuilder: (BuildContext context){
+              return Constatnts.choices.map((String choices){
+                return PopupMenuItem<String>(
+                  value: choices,
+                  child: Text(choices),
                 );
-              })
+              }).toList();
+            },
+          ),
         ],
       ),
       //create StreamBuilder
