@@ -16,7 +16,7 @@ class AboutPage extends StatelessWidget {
             _getBackground(),
             _getGradient(),
             _getContent(),
-            Align(
+            /*Align(
               alignment: Alignment.bottomRight,
               child: FloatingActionButton(
                 onPressed: () {
@@ -27,7 +27,7 @@ class AboutPage extends StatelessWidget {
                 },
                 child: Icon(Icons.navigate_next),
               ),
-            ),
+            ),*/
             // _getToolbar(context),
           ],
         ),
