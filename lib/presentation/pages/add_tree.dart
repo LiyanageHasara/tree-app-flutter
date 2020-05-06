@@ -58,6 +58,7 @@ class _AddTreePageState extends State<AddTreePage> {
             fit: BoxFit.fitHeight,
           ),
           //button for change the image
+          //https://www.youtube.com/watch?v=t4QJoivDNqg&t=2623s
           FlatButton(
             padding: EdgeInsets.all(16),
             color: Colors.black54,
@@ -88,6 +89,7 @@ class _AddTreePageState extends State<AddTreePage> {
             fit: BoxFit.cover,
           ),
           //to change the image
+          //https://www.youtube.com/watch?v=t4QJoivDNqg&t=2623s
           FlatButton(
             padding: EdgeInsets.all(15),
             color: Colors.black45,
@@ -117,6 +119,7 @@ class _AddTreePageState extends State<AddTreePage> {
     }
   }
 
+  //https://www.youtube.com/watch?v=-blxq_RLybQ&t=905s
   @override
   Widget build(BuildContext context) {
     return Scaffold(
