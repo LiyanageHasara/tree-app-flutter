@@ -189,7 +189,7 @@ class _RegisterState extends State<Register> {
                                               dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                                               Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => AboutPage()),
+                                                MaterialPageRoute(builder: (context) => ListPage()),
                                               );
                                               if(result == null){
                                                 setState(() {
@@ -265,7 +265,7 @@ String validatePassword(String value) {
 }
 
 String validateName(String value) {
-  if (value.length < 0)
+  if (value.length < 4)
     return 'Name can not be null';
   else
     return null;
