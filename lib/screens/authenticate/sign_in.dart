@@ -130,27 +130,27 @@ https://medium.com/flutterpub/flutter-how-to-do-user-login-with-firebase-a6af760
                                                      dynamic result = await _auth.signInWithEmailAndPassword(
                                                          email, password);
 
-                                                     if (result == null) {
-                                                       setState(() {
-                                                         error = 'could not sign in with those credentials';
-                                                         loading = false;
-                                                       });
-                                                     }
-
-                                                     else{
-                                                       if(email == 'admin@gmail.com'){
+                                                     if (result != null) {
+                                                       if(email == 'admin1@gmail.com'){
                                                          Navigator.push(
                                                            context,
                                                            MaterialPageRoute(builder: (context) => ListPage()),
                                                          );
                                                        }
-
-                                                       if(email != 'admin@gmail.com'){
+                                                       else{
                                                          Navigator.push(
                                                            context,
                                                            MaterialPageRoute(builder: (context) => MenuPage()),
                                                          );
                                                        }
+
+                                                     }
+
+                                                     else{
+                                                       setState(() {
+                                                       error = 'could not sign in with those credentials';
+                                                       loading = false;
+                                                       });
                                                      }
                                                  }
                                                },
