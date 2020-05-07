@@ -16,6 +16,11 @@ class _SearchPageState extends State<SearchPage> {
   var queryResultSet = [];
   var tempSearchStore = [];
 
+  /*
+I referred the following tutorial to build the search functinality
+ https://www.youtube.com/watch?v=0szEJiCUtMM
+ */
+
   initiateSearch(value) {
     if (value.length == 0) {
       setState(() {
@@ -113,12 +118,6 @@ class _SearchPageState extends State<SearchPage> {
           ),
            //SizedBox(height: 10.0),
           ListView(
-              //padding: EdgeInsets.only(left: 10.0, right: 10.0),
-              //crossAxisCount: 2,
-              //crossAxisSpacing: 4.0,
-              //mainAxisSpacing: 4.0,
-              //primary: false,
-              //shrinkWrap: true,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               children: tempSearchStore.map((element) {
@@ -131,18 +130,6 @@ Widget buildResultCard(data) {
 
   return Card(
     color: Color(0xFFbddfee4),
-            /*child: Container(
-            child: Center
-             child: Text(data['treeDescription']),
-            //textAlign: TextAlign.center,
-             //style: TextStyle(
-             //color: Colors.black,
-             //fontSize: 20.0,
-            // ),
-           //  ),
-            )
-  )
-  */
             child: Column(
               children: <Widget>[
                   Text(
@@ -177,71 +164,4 @@ Widget buildResultCard(data) {
             ),
             );
 
-  /*eturn Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      elevation: 2.0,
-      child: Container(
-          child: Center(
-              child: Text(data['treeDescription'],
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20.0,
-                ),
-              ),
-          )
-      )
-  );*/
-
-  //return SingleChildScrollView(
-    //padding: const EdgeInsets.all(30.0),
-      //child: Column(
-        //crossAxisAlignment: CrossAxisAlignment.start,
-          //children: <Widget>[
-            //Text(data['treeTitle'],
-  //*style: Theme.of(context).textTheme.title.copyWith(
-                  //color: Color(0xFF196b69),
-                 // fontSize: 23.0,
-                //  fontWeight: FontWeight.bold),*//*
-          //  ),
-          //  const SizedBox(
-            //  height: 18.0,
-           // ),
-            //Container(
-            //  height: 210.0,
-            //  width: 352.0,
-            //  decoration: new BoxDecoration(
-               //   image: new DecorationImage(
-                  //    image: NetworkImage(data['treeImage'] != null
-                       //   ? data['treeImage']
-                        //  : 'https://www.null.video/img/null-logo-new-small.jpg'),
-                   //   fit: BoxFit.cover)),
-        //    ),
-          //  Padding(
-            //  padding: EdgeInsets.all(8.0),
-         //   ),
-         //   Text(
-           //   data['treeDescription'],
-          //    style: TextStyle(fontSize: 15.0),
-          //  ),
-         // ]
-    //  );
-
-  /*return ListView(
-      children: <Widget>[
-        Text(data['treeTitle']),
-        Text(data['treeDescription']),
-        Container(
-          height: 210.0,
-          width: 352.0,
-          decoration: new BoxDecoration(
-              image: new DecorationImage(
-                  image: NetworkImage(data['treeImage'] != null
-                      ? data['treeImage']
-                      : 'https://www.null.video/img/null-logo-new-small.jpg'),
-                  fit: BoxFit.cover)),
-        ),
-      ]
-  );
-*/
 }

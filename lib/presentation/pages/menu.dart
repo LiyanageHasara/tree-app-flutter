@@ -126,25 +126,6 @@ class MenuPage extends StatelessWidget {
             );
           }),
 
-/*      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-          color: Color(0xFF196b69),
-          size: 30,
-        ),
-        elevation: 10,
-        backgroundColor: Color(0xFFf7fff8),
-        onPressed: () {
-          //navigated to the AddTree page when clicking floating action button
-          Navigator.push(
-            context,
-            AnimationPageRoute(
-              'bottomCenter',
-              widget: AddTreePage(isTreeUpdating: null),
-            ),
-          );
-        },
-      ),*/
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

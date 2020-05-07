@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treeapp/presentation/pages/menu.dart';
 import 'package:treeapp/presentation/pages/text_style.dart';
 
 import 'list.dart';
@@ -16,24 +17,29 @@ class AboutPage extends StatelessWidget {
             _getBackground(),
             _getGradient(),
             _getContent(),
-            /*Align(
+            Align(
               alignment: Alignment.bottomRight,
               child: FloatingActionButton(
                 onPressed: () {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ListPage())
+                      MaterialPageRoute(builder: (context) => MenuPage())
                   );
                 },
                 child: Icon(Icons.navigate_next),
               ),
-            ),*/
+            ),
             // _getToolbar(context),
           ],
         ),
       ),
     );
   }
+/*
+I referred the following tutorial to build this widget(about colorizing image with a gradiant)
+https://sergiandreplace.com/planets-flutter-planet-detail-page/
+ */
+
 
   Container _getBackground () {
     return new Container(

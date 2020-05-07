@@ -1,3 +1,4 @@
+//this page include some decoratins which I have used in the about page
 import 'package:flutter/material.dart';
 
 const textInputDecoration = InputDecoration(

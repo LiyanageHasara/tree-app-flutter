@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -38,15 +40,10 @@ class _SplashScreenState extends State<SplashScreen>{
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    /*CircleAvatar(
-                      backgroundColor: Color(0xFF196b69),
-                      radius: 50.0,
-                      child: Icon(
-                        Icons.all_inclusive,
-                        color: Colors.white,
-                        size: 50.0,
-                      ),
-                    ),*/
+                    /*
+I referred the following tutorial about "Splash Screen" to build this widget
+https://www.youtube.com/watch?v=FNBuo-7zg2Q
+ */
                      new Image.asset(
                       "assets/images/logo.png",
                       height: 100.0,

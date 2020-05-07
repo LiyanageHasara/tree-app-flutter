@@ -5,6 +5,7 @@ import 'package:treeapp/services/auth.dart';
 import 'package:treeapp/shared/loading.dart';
 import '../../presentation/pages/list.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -16,6 +17,10 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+/*
+I referred the following tutorial about "Firebase Auth" to build these functionalities
+https://medium.com/flutterpub/flutter-how-to-do-user-login-with-firebase-a6af760b14d5
+ */
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
@@ -121,23 +126,6 @@ class _SignInState extends State<SignIn> {
                                               new BorderRadius.circular(30.0)),
                                                onPressed: () async {
                                                  if(_formKey.currentState.validate()){
-
-                                                   if(email == 'admin@gmail.com'){
-                                                     Navigator.push(
-                                                       context,
-                                                       MaterialPageRoute(builder: (context) => ListPage()),
-                                                     );
-                                                   }
-
-                                                   if(email != 'admin@gmail.com'){
-                                                     Navigator.push(
-                                                       context,
-                                                       MaterialPageRoute(builder: (context) => MenuPage()),
-                                                     );
-                                                   }
-
-
-                                                   else {
                                                      setState(() => loading = true);
                                                      dynamic result = await _auth.signInWithEmailAndPassword(
                                                          email, password);
@@ -148,7 +136,22 @@ class _SignInState extends State<SignIn> {
                                                          loading = false;
                                                        });
                                                      }
-                                                   }
+
+                                                     else{
+                                                       if(email == 'admin@gmail.com'){
+                                                         Navigator.push(
+                                                           context,
+                                                           MaterialPageRoute(builder: (context) => ListPage()),
+                                                         );
+                                                       }
+
+                                                       if(email != 'admin@gmail.com'){
+                                                         Navigator.push(
+                                                           context,
+                                                           MaterialPageRoute(builder: (context) => MenuPage()),
+                                                         );
+                                                       }
+                                                     }
                                                  }
                                                },
                                           child: new Text(
@@ -200,6 +203,7 @@ class _SignInState extends State<SignIn> {
 }
 
 String validateEmail(String value) {
+  //https://stackoverflow.com/questions/16800540/validate-email-address-in-dart
   Pattern pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = new RegExp(pattern);

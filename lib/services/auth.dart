@@ -1,3 +1,9 @@
+/*
+I referred the following tutorial about "Firebase Auth" to build these functionalities
+https://medium.com/flutterpub/flutter-how-to-do-user-login-with-firebase-a6af760b14d5
+ */
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:treeapp/models/user.dart';
 
