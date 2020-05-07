@@ -15,7 +15,7 @@ class TreeDetailsPage extends StatelessWidget {
         //title for details page
         title: Text('Tree Details'),
       ),
-      //https://www.youtube.com/watch?v=BOztHbCIn0M&t=252s
+      //I referred https://www.youtube.com/watch?v=BOztHbCIn0M&t=252s
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(30.0),
         child: Column(
